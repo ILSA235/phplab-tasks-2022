@@ -29,7 +29,7 @@ class Arrays implements ArraysInterface
 		$keys = array_keys($vrb);
 		print_r($keys);
 		$vals = array_values($vrb);
-		
+		print_r($vals);
 		
 	}
 }
