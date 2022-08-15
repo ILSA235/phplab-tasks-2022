@@ -4,6 +4,7 @@ namespace arrays;
 
 class Arrays implements ArraysInterface
 {
+	
 	public function repeatArrayValues(array $input): array
 	{
 		$values = [];
@@ -14,22 +15,40 @@ class Arrays implements ArraysInterface
 		}
 		return $values;
 	}
+	
 	public function getUniqueValue(array $input): int
 	{
 		$values = array_unique($input);
 		return $values;
 	}
+	
 	public function groupByTag(array $input): array
 	{
-		$vrb = [];
-		for($i=0;$i<count($input);$i++) {
-			$vrb = [$input[$i]['name'] => $input[$i]['tags']];
-			//print_r($vrb);
+		foreach($input as $var) {
+			foreach($var['tags'] as $arr) {
+				$tag_arr[] = $arr;
+			}
 		}
-		$keys = array_keys($vrb);
-		print_r($keys);
-		$vals = array_values($vrb);
-		
-		
+		$tag_arr = array_unique($tag_arr);
+		$mas = array();
+		foreach($tag_arr as $var){
+			array_push($mas, $var);
+		}
+		$sum = array();
+		for($i=0;$i<count($mas);$i++) {
+			for($j=0;$j<count($input);$j++) {
+				for($k=0;$k<count($input[$j]['tags']);$k++) {
+					if($mas[$i] === $input[$j]['tags'][$k]) {
+						array_push($sum	,$input[$j]['name']);
+					}
+					
+				}
+			} 
+			sort($sum);
+			$fin[$mas[$i]] = $sum;
+			$sum = [];
+		}
+		ksort($fin);
+		return $fin;
 	}
 }
