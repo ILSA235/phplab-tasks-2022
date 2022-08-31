@@ -18,8 +18,19 @@ class Arrays implements ArraysInterface
 	
 	public function getUniqueValue(array $input): int
 	{
-		$values = array_unique($input);
-		return $values;
+        $values = array_count_values($input);
+        if($values != []) {
+            $out = array_keys($values,1);
+            if($out != []) {
+                $out = min($out);
+            } else {
+                $out = 0;
+            }
+        } else{
+            $out = 0;
+        }
+
+        return $out;
 	}
 	
 	public function groupByTag(array $input): array
